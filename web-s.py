@@ -1,10 +1,15 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import datetime
+
+today = datetime.date.today()
+today = list(str(today))
+today = ''.join(today)
 
 products = []
 prices = []
-
+date = []
 
 driver = webdriver.Chrome(executable_path="./chromedriver")
 driver.get(
@@ -15,10 +20,14 @@ soup = BeautifulSoup(content, features="html.parser")
 for a in soup.findAll('a', href=True, attrs={'class': '_31qSD5'}):
     name = a.find('div', attrs={'class': '_3wU53n'})
     price = a.find('div', attrs={'class': '_1vC4OE _2rQ-NK'})
-    rating = a.find('div', attrs={'class': 'hGSR34 _2beYZw'})
     products.append(name.text)
     prices.append(price.text)
+    date.append(today)
+    fileName = name.text[0:20]
 
+    df = pd.DataFrame({'Time': date, 'Price': price.text})
 
-df = pd.DataFrame({'Product Name': products, 'Price': prices})
-df.to_csv('products.csv', index=False, encoding='utf-8')
+    df.to_csv(fileName, index=False, encoding='utf-8')
+    df = pd.read_csv(fileName)
+    df.drop_duplicates(subset=None, inplace=True)
+    df.to_csv(fileName, index=False, encoding='utf-8')
