@@ -26,8 +26,9 @@ for a in soup.findAll('a', href=True, attrs={'class': '_31qSD5'}):
     fileName = name.text[0:20]
 
     df = pd.DataFrame({'Time': date, 'Price': price.text})
-
+   
     df.to_csv(fileName, index=False, encoding='utf-8')
     df = pd.read_csv(fileName)
+    # Again opening it for removing same row
     df.drop_duplicates(subset=None, inplace=True)
     df.to_csv(fileName, index=False, encoding='utf-8')
