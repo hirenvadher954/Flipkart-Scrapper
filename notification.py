@@ -39,7 +39,7 @@ def check_price():
     count = 0
 
     if price_now <= dp:
-        send_mail()
+#         send_mail()
         push_notification()
     else:
         count += 1
@@ -48,24 +48,24 @@ def check_price():
 print("Rechecking.." + str(datetime.now()))
 
 
-def send_mail():
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
-    server.login('170390107045@saffrony.ac.in', 'Ahirjsca2')
-    subject = "Price of Phillips Trimmer has fallen down below Rs. " + str(dp)
-    body = "Hey ! \n  has fallen down below Rs." + str(
-        dp) + ".\n So, hurry up & check the amazon link right now : " + url
-    msg = f"Subject: {subject} \n\n {body} "
-    server.sendmail(
-        '170390107045@saffrony.ac.in',
-        'hirenjsca@gmail.com',
-        msg
-    )
-    print("Email Mokli Ditho")
+# def send_mail():
+#     server = smtplib.SMTP('smtp.gmail.com', 587)
+#     server.ehlo()
+#     server.starttls()
+#     server.ehlo()
+#     server.login('Your Email', 'Your Password')
+#     subject = "Price of Phillips Trimmer has fallen down below Rs. " + str(dp)
+#     body = "Hey ! \n  has fallen down below Rs." + str(
+#         dp) + ".\n So, hurry up & check the amazon link right now : " + url
+#     msg = f"Subject: {subject} \n\n {body} "
+#     server.sendmail(
+#         '170390107045@saffrony.ac.in',
+#         'hirenjsca@gmail.com',
+#         msg
+#     )
+#     print("Email Mokli Ditho")
 
-    server.quit()
+#     server.quit()
 
 
 def push_notification():
